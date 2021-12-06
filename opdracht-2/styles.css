@@ -18,15 +18,35 @@
 .three ul {
     display: flex;
     flex-direction: row;
-    justify-content: start;
-
-
-
-
-
+    list-style-type: none;
+    justify-content: flex-start;
+    column-gap: 80px;
 }
+
 .three div {
     display: flex;
     flex-direction: row;
     justify-content: end;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.five {
+    display: flex;
+}
+
+@media screen and (max-width: 1200px) {
+    .five { flex-wrap: wrap; }
+
+
+
+
 }
