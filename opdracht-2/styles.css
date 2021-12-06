@@ -3,3 +3,12 @@
 ========================================================= */
 
 /* Schrijf hier  jouw CSS! */
+
+.five {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.five article {
+  flex: 1 1 30%;
+}
