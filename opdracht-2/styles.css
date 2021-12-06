@@ -38,15 +38,11 @@ form {
     align-items: center;
 }
 
-
 .five {
     display: flex;
+    flex-wrap: wrap;
 }
 
-@media screen and (max-width: 1200px) {
-    .five { flex-wrap: wrap; }
-
-
-
-
+.five article {
+    flex: 1 30%;
 }
