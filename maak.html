@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIJNLIJN Studio — maak de metrokaart van jouw leven</title>
+  <meta name="description" content="Vul je levensmomenten in en download jouw leven als prachtige metrokaart-poster. Gratis, zonder account, alles blijft op je eigen apparaat." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23FF3B6B' stroke-width='5'/%3E%3Crect x='4' y='13' width='24' height='6' rx='2' fill='%232D7DFF'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/stijl.css" />
+  <link rel="stylesheet" href="css/maak.css" />
+</head>
+<body class="maak-body">
+
+  <header class="balk">
+    <a class="logo" href="index.html" title="Naar de startpagina">
+      <span class="logo-roundel" aria-hidden="true"><i></i><b>MIJNLIJN</b></span>
+    </a>
+    <div class="balk-acties">
+      <button class="knop knop-geel" id="knop-voorbeeld">Voorbeeld laden</button>
+      <button class="knop knop-rood" id="knop-download">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download poster
+      </button>
+    </div>
+  </header>
+
+  <main class="werkvlak">
+
+    <!-- ── Instellingen & momenten ── -->
+    <aside class="zijkant">
+      <section class="blok">
+        <h2 class="bloktitel">Jouw kaart</h2>
+        <div class="veldrij">
+          <label class="veld"><span class="veldlabel">Jouw naam</span>
+            <input id="in-naam" placeholder="Sam" maxlength="24" autocomplete="given-name" /></label>
+          <label class="veld veld-smal"><span class="veldlabel">Geboortejaar</span>
+            <input id="in-jaar" type="number" min="1930" max="2024" placeholder="1998" /></label>
+        </div>
+
+        <span class="veldlabel">Stijl</span>
+        <div class="chips" id="thema-chips"></div>
+
+        <span class="veldlabel">Formaat</span>
+        <div class="chips" id="formaat-chips"></div>
+      </section>
+
+      <section class="blok blok-groei">
+        <div class="bloktitel-rij">
+          <h2 class="bloktitel">Jouw momenten</h2>
+          <button class="knop knop-klein knop-blauw" id="knop-moment">+ Moment</button>
+        </div>
+        <p class="hint">Elk moment wordt een station. Kies bij welke lijnen het hoort — bij meerdere lijnen wordt het een overstapstation.</p>
+        <div class="momenten" id="momenten"></div>
+      </section>
+
+      <section class="blok blok-voet">
+        <button class="knop knop-stil knop-klein" id="knop-svg">Download SVG</button>
+        <button class="knop knop-stil knop-klein" id="knop-wissen">Alles wissen</button>
+      </section>
+    </aside>
+
+    <!-- ── Live poster ── -->
+    <section class="podium" id="podium">
+      <div class="poster-houder" id="poster-houder"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/kaart.js"></script>
+  <script src="js/maak.js"></script>
+</body>
+</html>

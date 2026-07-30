@@ -1,0 +1,228 @@
+/* ============================================================
+   MIJNLIJN — maak.css
+   De studio: zijkant met instellingen/momenten, podium met poster.
+   ============================================================ */
+
+.maak-body {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Bovenbalk ── */
+.balk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px var(--gutter);
+  border-bottom: 1.5px solid var(--lijn-sterk);
+  background: rgba(11, 27, 51, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.balk-acties { display: flex; gap: 10px; }
+
+/* ── Werkvlak ── */
+.werkvlak {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(340px, 420px) 1fr;
+  min-height: 0;
+}
+
+/* ── Zijkant ── */
+.zijkant {
+  display: flex;
+  flex-direction: column;
+  border-right: 1.5px solid var(--lijn-sterk);
+  background: var(--nacht-2);
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.blok { padding: 18px 20px; border-bottom: 1px solid var(--lijn); }
+.blok-groei { flex: 1; }
+.blok-voet { display: flex; gap: 8px; border-bottom: none; }
+
+.bloktitel {
+  margin: 0 0 12px;
+  font-family: var(--kop);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bloktitel-rij {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.bloktitel-rij .bloktitel { margin: 0; }
+
+.hint { margin: 0 0 14px; font-size: 12.5px; color: var(--zacht); }
+
+.veldrij { display: flex; gap: 10px; margin-bottom: 14px; }
+.veld { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.veld-smal { flex: 0.55; }
+
+.veldlabel {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--zacht);
+}
+
+.veld input {
+  background: var(--nacht);
+  border: 1.5px solid var(--lijn-sterk);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14.5px;
+  width: 100%;
+}
+
+.veld input:focus {
+  outline: none;
+  border-color: var(--blauw);
+  box-shadow: 0 0 0 3px rgba(45, 125, 255, 0.25);
+}
+
+/* Chips */
+.chips { display: flex; gap: 7px; flex-wrap: wrap; margin: 7px 0 14px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--nacht);
+  border: 1.5px solid var(--lijn-sterk);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: var(--kop);
+  font-weight: 600;
+  font-size: 12.5px;
+  cursor: pointer;
+  color: var(--zacht);
+}
+
+.chip:hover { color: var(--wit); }
+
+.chip.actief {
+  border-color: var(--geel);
+  color: var(--wit);
+  box-shadow: 0 0 0 1px var(--geel), 0 4px 18px -4px rgba(255, 210, 63, 0.4);
+}
+
+.chip-bol { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid; }
+
+/* ── Momenten ── */
+.momenten { display: flex; flex-direction: column; gap: 10px; }
+
+.moment {
+  background: var(--nacht);
+  border: 1.5px solid var(--lijn);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+
+.moment:focus-within { border-color: var(--lijn-sterk); }
+
+.moment-boven { display: flex; gap: 8px; align-items: center; }
+
+.moment-jaar {
+  width: 76px;
+  background: var(--nacht-3);
+  border: 1.5px solid transparent;
+  border-radius: 7px;
+  padding: 7px 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  text-align: center;
+}
+
+.moment-titel {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--lijn);
+  padding: 7px 2px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.moment-jaar:focus, .moment-titel:focus { outline: none; border-color: var(--blauw); }
+
+.moment-weg {
+  border: none;
+  background: none;
+  color: var(--vaag);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.moment-weg:hover { color: var(--rood); background: rgba(255, 59, 107, 0.12); }
+
+.moment-lijnen { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+
+.lijnknop {
+  border: 1.5px solid var(--lk);
+  color: var(--lk);
+  background: transparent;
+  border-radius: 999px;
+  padding: 2.5px 10px;
+  font-family: var(--kop);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.1s ease, background 0.1s ease, color 0.1s ease;
+}
+
+.lijnknop:hover { opacity: 1; }
+
+.lijnknop.aan {
+  background: var(--lk);
+  color: var(--nacht);
+  opacity: 1;
+}
+
+.leeg { color: var(--zacht); font-size: 13.5px; font-style: italic; }
+
+/* ── Podium ── */
+.podium {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  overflow: auto;
+  padding: 24px;
+  background:
+    radial-gradient(1200px 600px at 70% 20%, rgba(45, 125, 255, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 20% 90%, rgba(255, 59, 107, 0.08), transparent 60%);
+}
+
+.poster-houder svg {
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(143, 163, 196, 0.2);
+  border-radius: 6px;
+  height: auto;
+}
+
+/* ── Responsief ── */
+@media (max-width: 980px) {
+  .maak-body { overflow: auto; height: auto; }
+  .werkvlak { grid-template-columns: 1fr; }
+  .zijkant { border-right: none; border-bottom: 1.5px solid var(--lijn-sterk); overflow: visible; }
+  .podium { min-height: 70vh; }
+}
