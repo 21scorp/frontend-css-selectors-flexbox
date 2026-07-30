@@ -73,19 +73,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
   position: relative;
   display: grid;
   place-items: center;
-  width: 116px;
-  height: 44px;
+  width: 120px;
+  height: 50px;
 }
 
 .logo-roundel i {
   position: absolute;
-  width: 40px;
-  height: 40px;
-  border: 6px solid var(--rood);
+  width: 44px;
+  height: 44px;
+  border: 7px solid var(--rood);
   border-radius: 50%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 18px rgba(255, 59, 107, 0.35);
 }
 
 .logo-roundel b {
