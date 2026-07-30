@@ -254,33 +254,62 @@ $("#knop-svg").addEventListener("click", () => {
   toast("SVG gedownload");
 });
 
+/* Poster → hoge-resolutie PNG-blob (gedeeld door download én deel) */
+function maakPNGBlob() {
+  return new Promise((klaar, faal) => {
+    const F = MIJNLIJN.FORMATEN[profiel.formaat] || MIJNLIJN.FORMATEN.poster;
+    const svgTekst = MIJNLIJN.tekenSVG(profiel, { thema: profiel.thema, formaat: profiel.formaat });
+    const schaal = 2;
+    const blob = new Blob([svgTekst], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = F.w * schaal;
+      c.height = F.h * schaal;
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      c.toBlob((png) => (png ? klaar(png) : faal(new Error("geen png"))), "image/png");
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      faal(new Error("svg laadde niet"));
+    };
+    img.src = url;
+  });
+}
+
 $("#knop-download").addEventListener("click", async () => {
-  const F = MIJNLIJN.FORMATEN[profiel.formaat] || MIJNLIJN.FORMATEN.poster;
-  const svgTekst = MIJNLIJN.tekenSVG(profiel, { thema: profiel.thema, formaat: profiel.formaat });
-  const schaal = 2; // hoge resolutie
+  try {
+    const png = await maakPNGBlob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(png);
+    a.download = bestandsnaam("png");
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast("Poster gedownload — deel 'm gerust!");
+  } catch {
+    toast("Downloaden mislukte — probeer het nog eens");
+  }
+});
 
-  const blob = new Blob([svgTekst], { type: "image/svg+xml" });
-  const url = URL.createObjectURL(blob);
-  const img = new Image();
+/* Deelknop alleen tonen als het apparaat bestanden kan delen (mobiel) */
+if (navigator.canShare && navigator.canShare({ files: [new File([""], "t.png", { type: "image/png" })] })) {
+  $("#knop-deel").hidden = false;
+}
 
-  img.onload = () => {
-    const c = document.createElement("canvas");
-    c.width = F.w * schaal;
-    c.height = F.h * schaal;
-    const ctx = c.getContext("2d");
-    ctx.drawImage(img, 0, 0, c.width, c.height);
-    URL.revokeObjectURL(url);
-    c.toBlob((png) => {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(png);
-      a.download = bestandsnaam("png");
-      a.click();
-      URL.revokeObjectURL(a.href);
-      toast("Poster gedownload — deel 'm gerust!");
-    }, "image/png");
-  };
-  img.onerror = () => toast("Downloaden mislukte — probeer het nog eens");
-  img.src = url;
+$("#knop-deel").addEventListener("click", async () => {
+  try {
+    const png = await maakPNGBlob();
+    const bestand = new File([png], bestandsnaam("png"), { type: "image/png" });
+    await navigator.share({
+      files: [bestand],
+      title: "Mijn leven als metrokaart",
+      text: "Kijk, mijn leven als metrokaart — gemaakt met MIJNLIJN.",
+    });
+  } catch (e) {
+    if (e && e.name !== "AbortError") toast("Delen lukte niet — download 'm dan gewoon");
+  }
 });
 
 /* ---------- Start ---------- */
