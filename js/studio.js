@@ -447,13 +447,58 @@ $("#import-bestand").addEventListener("change", async (e) => {
 /* ---------- Bedrijfsdialoog ---------- */
 
 const dlgBedrijf = $("#dialoog-bedrijf");
+let logoTijdelijk = null; // null = ongewijzigd, "" = verwijderd, string = nieuw
+
+function toonLogoPreview(bron) {
+  const img = $("#logo-preview");
+  const weg = $("#knop-logo-weg");
+  img.hidden = !bron;
+  weg.hidden = !bron;
+  if (bron) img.src = bron;
+}
 
 $("#knop-bedrijf").addEventListener("click", () => {
   const form = $("#form-bedrijf");
   for (const [k, v] of Object.entries(staat.bedrijf)) {
     if (form.elements[k]) form.elements[k].value = v || "";
   }
+  logoTijdelijk = null;
+  toonLogoPreview(staat.bedrijf.logo);
   dlgBedrijf.showModal();
+});
+
+$("#knop-logo-kies").addEventListener("click", () => $("#logo-bestand").click());
+
+$("#knop-logo-weg").addEventListener("click", () => {
+  logoTijdelijk = "";
+  toonLogoPreview("");
+});
+
+$("#logo-bestand").addEventListener("change", (e) => {
+  const bestand = e.target.files[0];
+  if (!bestand) return;
+  const lezer = new FileReader();
+  lezer.onload = () => {
+    // SVG bewaren zoals-ie is; bitmaps verkleinen naar max 480px breed
+    if (bestand.type === "image/svg+xml") {
+      logoTijdelijk = lezer.result;
+      toonLogoPreview(logoTijdelijk);
+      return;
+    }
+    const img = new Image();
+    img.onload = () => {
+      const schaal = Math.min(1, 480 / img.width);
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * schaal);
+      c.height = Math.round(img.height * schaal);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      logoTijdelijk = c.toDataURL("image/png");
+      toonLogoPreview(logoTijdelijk);
+    };
+    img.src = lezer.result;
+  };
+  lezer.readAsDataURL(bestand);
+  e.target.value = "";
 });
 
 dlgBedrijf.addEventListener("close", () => {
@@ -462,6 +507,7 @@ dlgBedrijf.addEventListener("close", () => {
   for (const k of Object.keys(staat.bedrijf)) {
     if (form.elements[k]) staat.bedrijf[k] = form.elements[k].value.trim();
   }
+  if (logoTijdelijk !== null) staat.bedrijf.logo = logoTijdelijk;
   bewaar();
   renderPreview();
   toast("Bedrijfsgegevens bewaard");

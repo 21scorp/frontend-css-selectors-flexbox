@@ -91,6 +91,7 @@ function renderFactuurHTML(f, bedrijf) {
   <article class="factuur thema-${esc(f.thema)}" lang="nl">
     <header class="f-kop">
       <div class="f-afzender">
+        ${bedrijf.logo ? `<img class="f-logo-img" src="${bedrijf.logo}" alt="" />` : ""}
         <div class="f-logo">${esc(bedrijf.naam) || "<span class='f-leeg'>Jouw bedrijfsnaam</span>"}</div>
         <div class="f-afzender-detail">${bedrijfsregels}</div>
       </div>

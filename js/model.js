@@ -51,6 +51,7 @@ function leegBedrijf() {
     btwId: "",
     iban: "",
     voet: "",
+    logo: "",
   };
 }
 

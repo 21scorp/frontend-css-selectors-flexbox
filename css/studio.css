@@ -443,6 +443,18 @@
   border-top: 1px solid var(--lijn);
 }
 
+.logo-rij { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.logo-rij img {
+  max-height: 44px;
+  max-width: 160px;
+  object-fit: contain;
+  border: 1px solid var(--lijn-sterk);
+  border-radius: var(--radius);
+  background: #fdfbf5;
+  padding: 4px 8px;
+}
+
 /* ── Toast ── */
 .toast {
   position: fixed;

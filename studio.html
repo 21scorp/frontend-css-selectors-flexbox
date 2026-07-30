@@ -119,6 +119,17 @@
         <label class="veld veld-breed"><span class="mono-label">Voettekst (optioneel)</span>
           <input name="voet" placeholder="Bedankt voor je vertrouwen." /></label>
       </div>
+      <div class="veldrij veldrij-logo">
+        <div class="veld">
+          <span class="mono-label">Logo (optioneel)</span>
+          <div class="logo-rij">
+            <img id="logo-preview" alt="" hidden />
+            <button type="button" class="knop knop-stil knop-klein" id="knop-logo-kies">Kies afbeelding…</button>
+            <button type="button" class="knop knop-stil knop-klein knop-gevaar" id="knop-logo-weg" hidden>Verwijder</button>
+            <input type="file" id="logo-bestand" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden />
+          </div>
+        </div>
+      </div>
 
       <div class="dialoog-acties">
         <button class="knop knop-stil" value="annuleer" formnovalidate>Annuleren</button>

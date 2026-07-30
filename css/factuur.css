@@ -56,6 +56,14 @@
   letter-spacing: -0.01em;
 }
 
+.f-logo-img {
+  max-height: 56px;
+  max-width: 220px;
+  object-fit: contain;
+  object-position: left;
+  margin-bottom: 10px;
+}
+
 .f-afzender-detail {
   margin-top: 10px;
   font-family: var(--f-mono);
