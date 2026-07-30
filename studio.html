@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="nl" data-thema="licht">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VLOT Studio — Facturen maken zonder gedoe</title>
+  <meta name="description" content="VLOT Studio: maak professionele facturen en offertes in je browser. 100% privé, geen account, perfecte PDF-export." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d3f8f'/%3E%3Cpath d='M8 8l6 16h4l6-16h-4.5L16 19.5 12.5 8z' fill='%23f5f0e4'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/studio.css" />
+  <link rel="stylesheet" href="css/factuur.css" />
+  <link rel="stylesheet" href="css/print.css" media="print" />
+</head>
+<body class="studio-body">
+
+  <!-- ══════════ TOPBAR ══════════ -->
+  <header class="topbar" role="banner">
+    <a class="merk" href="index.html" title="Naar de startpagina">
+      <span class="merk-blok" aria-hidden="true">V</span>
+      <span class="merk-naam">VLOT<span class="merk-sub">studio</span></span>
+    </a>
+
+    <nav class="topbar-acties" aria-label="Studio-acties">
+      <button class="knop knop-stil" id="knop-bedrijf" title="Jouw bedrijfsgegevens">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 14V6l6-4 6 4v8h-4v-4H6v4H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        Mijn&nbsp;bedrijf
+      </button>
+      <button class="knop knop-stil" id="knop-export" title="Back-up als JSON-bestand">Export</button>
+      <button class="knop knop-stil" id="knop-import" title="Back-up terugzetten">Import</button>
+      <input type="file" id="import-bestand" accept="application/json" hidden />
+      <button class="knop knop-stil" id="knop-donker" title="Licht / donker">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 9.5A5.5 5.5 0 0 1 6.5 3 5.5 5.5 0 1 0 13 9.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="knop knop-vermiljoen" id="knop-print" title="Download als PDF (via afdrukken)">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        PDF
+      </button>
+    </nav>
+  </header>
+
+  <!-- ══════════ DRIELUIK ══════════ -->
+  <main class="drieluik">
+
+    <!-- ── Kolom 1: documentlijst ── -->
+    <aside class="paneel paneel-lijst" aria-label="Documenten">
+      <div class="paneel-kop">
+        <h2 class="mono-label">Documenten</h2>
+        <button class="knop knop-blauw knop-klein" id="knop-nieuw">+ Nieuw</button>
+      </div>
+
+      <div class="lijst-filters" role="tablist" aria-label="Filter op status">
+        <button class="filter actief" data-filter="alle" role="tab">Alle</button>
+        <button class="filter" data-filter="concept" role="tab">Concept</button>
+        <button class="filter" data-filter="verzonden" role="tab">Verzonden</button>
+        <button class="filter" data-filter="betaald" role="tab">Betaald</button>
+      </div>
+
+      <ol class="factuurlijst" id="factuurlijst"></ol>
+
+      <div class="lijst-totaal" id="lijst-totaal"></div>
+    </aside>
+
+    <!-- ── Kolom 2: editor ── -->
+    <section class="paneel paneel-editor" aria-label="Factuur bewerken">
+      <div id="editor"></div>
+    </section>
+
+    <!-- ── Kolom 3: voorvertoning ── -->
+    <section class="paneel paneel-preview" aria-label="Voorvertoning">
+      <div class="preview-balk">
+        <span class="mono-label">Voorvertoning · A4</span>
+        <div class="thema-kiezer" id="thema-kiezer" role="radiogroup" aria-label="Factuurthema"></div>
+      </div>
+      <div class="preview-vlak" id="preview-vlak">
+        <div class="a4-schaal" id="a4-schaal">
+          <div class="a4" id="a4"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════ DIALOOG: BEDRIJFSGEGEVENS ══════════ -->
+  <dialog class="dialoog" id="dialoog-bedrijf">
+    <form method="dialog" class="dialoog-inhoud" id="form-bedrijf">
+      <h2 class="dialoog-titel">Mijn bedrijf</h2>
+      <p class="dialoog-sub">Deze gegevens komen op elke factuur. Alles blijft in jouw browser.</p>
+
+      <div class="veldrij">
+        <label class="veld veld-breed"><span class="mono-label">Bedrijfsnaam</span>
+          <input name="naam" placeholder="Studio Voorbeeld" autocomplete="organization" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld veld-breed"><span class="mono-label">Adres</span>
+          <input name="adres" placeholder="Keizersgracht 1" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld"><span class="mono-label">Postcode</span>
+          <input name="postcode" placeholder="1015 CD" /></label>
+        <label class="veld"><span class="mono-label">Plaats</span>
+          <input name="plaats" placeholder="Amsterdam" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld"><span class="mono-label">E-mail</span>
+          <input name="email" type="email" placeholder="hallo@studio.nl" /></label>
+        <label class="veld"><span class="mono-label">Telefoon</span>
+          <input name="telefoon" placeholder="06 12345678" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld"><span class="mono-label">KVK-nummer</span>
+          <input name="kvk" placeholder="12345678" /></label>
+        <label class="veld"><span class="mono-label">BTW-id</span>
+          <input name="btwId" placeholder="NL123456789B01" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld veld-breed"><span class="mono-label">IBAN</span>
+          <input name="iban" placeholder="NL00 BANK 0123 4567 89" /></label>
+      </div>
+      <div class="veldrij">
+        <label class="veld veld-breed"><span class="mono-label">Voettekst (optioneel)</span>
+          <input name="voet" placeholder="Bedankt voor je vertrouwen." /></label>
+      </div>
+
+      <div class="dialoog-acties">
+        <button class="knop knop-stil" value="annuleer" formnovalidate>Annuleren</button>
+        <button class="knop knop-blauw" value="bewaar" id="knop-bedrijf-bewaar">Bewaren</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/model.js"></script>
+  <script src="js/factuur-render.js"></script>
+  <script src="js/studio.js"></script>
+</body>
+</html>

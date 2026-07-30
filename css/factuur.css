@@ -1,0 +1,278 @@
+/* ============================================================
+   VLOT — factuur.css
+   Styling van het factuurdocument zelf (A4), incl. 4 thema's:
+   grootboek · klassiek · minimaal · vermiljoen
+   Dit bestand wordt zowel op scherm (preview) als in print gebruikt.
+   ============================================================ */
+
+/* Het A4-vel: 210 × 297 mm op 96dpi = 794 × 1123 px */
+.a4 {
+  width: 794px;
+  min-height: 1123px;
+  background: #fdfbf5;
+  color: #1a2233;
+  box-shadow: var(--schaduw-groot);
+  position: relative;
+  overflow: hidden;
+}
+
+.factuur {
+  --f-inkt: #1a2233;
+  --f-accent: #1d3f8f;
+  --f-accent-2: #e8491f;
+  --f-lijn: rgba(26, 34, 51, 0.18);
+  --f-vlak: rgba(29, 63, 143, 0.05);
+  --f-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --f-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 1123px;
+  padding: 56px 60px 120px;
+  color: var(--f-inkt);
+  font-family: var(--f-serif);
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.f-leeg { opacity: 0.35; font-style: italic; }
+
+/* ── Kop ── */
+.f-kop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--f-inkt);
+}
+
+.f-logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.f-afzender-detail {
+  margin-top: 10px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--f-inkt) 72%, transparent);
+}
+
+.f-titel {
+  margin: 0 0 12px;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: right;
+  color: var(--f-accent);
+}
+
+.f-metatabel {
+  border-collapse: collapse;
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 11px;
+}
+
+.f-metatabel th {
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  color: color-mix(in srgb, var(--f-inkt) 55%, transparent);
+  padding: 2px 16px 2px 0;
+}
+
+.f-metatabel td { text-align: right; padding: 2px 0; }
+
+/* ── Adressering ── */
+.f-adressering {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 26px 0 30px;
+}
+
+.f-label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--f-accent-2);
+  margin-bottom: 8px;
+}
+
+.f-aan-detail { font-size: 14px; line-height: 1.65; }
+
+.f-stempel {
+  border: 3px double currentColor;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  transform: rotate(-4deg);
+  color: #2e6e4e;
+  opacity: 0.85;
+}
+
+/* ── Regels ── */
+.f-tabel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.f-tabel thead th {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-align: left;
+  color: color-mix(in srgb, var(--f-inkt) 55%, transparent);
+  border-top: 1px solid var(--f-inkt);
+  border-bottom: 1px solid var(--f-lijn);
+  padding: 8px 10px;
+}
+
+.f-tabel tbody td {
+  padding: 10px;
+  border-bottom: 1px solid var(--f-lijn);
+  vertical-align: top;
+}
+
+.f-tabel .f-nr {
+  width: 34px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: color-mix(in srgb, var(--f-inkt) 45%, transparent);
+}
+
+.f-tabel .f-aantal,
+.f-tabel .f-prijs,
+.f-tabel .f-btwkolom,
+.f-tabel .f-bedrag {
+  text-align: right;
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 12px;
+}
+
+.f-tabel .f-btwkolom { width: 52px; color: color-mix(in srgb, var(--f-inkt) 55%, transparent); }
+.f-tabel .f-bedrag { font-weight: 600; }
+.f-tabel thead .f-aantal, .f-tabel thead .f-prijs,
+.f-tabel thead .f-btwkolom, .f-tabel thead .f-bedrag { text-align: right; }
+
+/* ── Totalen & noot ── */
+.f-onder {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 26px;
+}
+
+.f-noot {
+  max-width: 46%;
+  font-size: 12.5px;
+  color: color-mix(in srgb, var(--f-inkt) 80%, transparent);
+}
+
+.f-noot p { margin: 0 0 10px; }
+.f-btwnoot { font-style: italic; }
+
+.f-totalen {
+  min-width: 300px;
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+}
+
+.f-totaalrij {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--f-lijn);
+}
+
+.f-korting { color: var(--f-accent-2); }
+
+.f-eind {
+  margin-top: 6px;
+  padding: 12px 14px;
+  background: var(--f-vlak);
+  border: 1.5px solid var(--f-inkt);
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ── Voet ── */
+.f-voet {
+  margin-top: auto;
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: 42px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--f-inkt);
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--f-inkt) 62%, transparent);
+}
+
+/* ════════ THEMA: KLASSIEK — zwart/wit, streng, tijdloos ════════ */
+.thema-klassiek {
+  --f-accent: #111111;
+  --f-accent-2: #111111;
+  --f-inkt: #111111;
+  --f-vlak: rgba(0, 0, 0, 0.04);
+}
+
+.thema-klassiek .f-titel {
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 26px;
+  margin-top: 8px;
+}
+
+/* ════════ THEMA: MINIMAAL — dun, licht, veel wit ════════ */
+.thema-minimaal {
+  --f-accent: #1a2233;
+  --f-accent-2: #6b7386;
+  --f-lijn: rgba(26, 34, 51, 0.1);
+  --f-vlak: transparent;
+}
+
+.thema-minimaal .f-kop { border-bottom-width: 1px; }
+.thema-minimaal .f-titel { font-size: 30px; color: var(--f-inkt); }
+.thema-minimaal .f-eind { border-width: 1px; }
+.thema-minimaal .f-voet { border-top: 1px solid var(--f-lijn); }
+
+/* ════════ THEMA: VERMILJOEN — gedurfd, rood voorop ════════ */
+.thema-vermiljoen {
+  --f-accent: #e8491f;
+  --f-accent-2: #1d3f8f;
+  --f-vlak: rgba(232, 73, 31, 0.06);
+}
+
+.thema-vermiljoen .f-kop { border-bottom-color: var(--f-accent); }
+.thema-vermiljoen .f-eind { border-color: var(--f-accent); color: var(--f-accent); }
+.thema-vermiljoen .f-tabel thead th { border-top-color: var(--f-accent); }
+.thema-vermiljoen .f-voet { border-top-color: var(--f-accent); }
