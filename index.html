@@ -208,5 +208,10 @@
     <span class="mono-label">Geen cookies · geen tracking · alles lokaal</span>
   </footer>
 
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
 </body>
 </html>

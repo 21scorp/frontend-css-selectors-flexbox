@@ -132,5 +132,10 @@
   <script src="js/model.js"></script>
   <script src="js/factuur-render.js"></script>
   <script src="js/studio.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
 </body>
 </html>
