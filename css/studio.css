@@ -488,14 +488,29 @@
 .toast.zichtbaar { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ── Responsief ── */
+.preview-wissel { display: none; }
+
 @media (max-width: 1180px) {
   .drieluik { grid-template-columns: 220px 1fr; }
   .paneel-preview { display: none; }
+
+  .preview-wissel {
+    display: inline-flex;
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+    box-shadow: 3px 3px 0 var(--blauw-diep), 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  body.toon-preview .paneel-editor { display: none; }
+  body.toon-preview .paneel-preview { display: flex; border-left: none; }
 }
 
 @media (max-width: 760px) {
   .drieluik { grid-template-columns: 1fr; }
   .paneel-lijst { max-height: 34vh; border-right: none; border-bottom: 1.5px solid var(--lijn-sterk); }
+  body.toon-preview .paneel-lijst { display: none; }
   .topbar { flex-wrap: wrap; }
   .regel, .regels-koppen { grid-template-columns: 1fr 52px 70px 80px 54px 24px; }
 }

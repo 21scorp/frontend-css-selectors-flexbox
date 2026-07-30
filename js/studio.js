@@ -521,6 +521,14 @@ dlgBedrijf.addEventListener("close", () => {
   toast("Bedrijfsgegevens bewaard");
 });
 
+/* Wisselknop editor ↔ voorbeeld op kleinere schermen */
+$("#knop-preview-wissel").addEventListener("click", (e) => {
+  const aan = document.body.classList.toggle("toon-preview");
+  e.target.textContent = aan ? "Bewerken" : "Voorbeeld";
+  e.target.setAttribute("aria-pressed", String(aan));
+  if (aan) schaalPreview();
+});
+
 /* ---------- Start ---------- */
 
 function renderAlles() {
