@@ -14,6 +14,9 @@ stuurt is dat absurd. VLOT keert het om: de software komt naar jou, je cijfers b
 
 ## Wat het kan
 
+- **Scan & betaal-QR** — elke factuur krijgt een EPC-betaal-QR (IBAN + bedrag + kenmerk) die
+  elke Nederlandse/Europese bank-app kan scannen; de QR-encoder is zelf geschreven, zonder
+  dependencies, en geverifieerd tegen een onafhankelijke decoder
 - **Facturen én offertes** — wissel per document; een offerte krijgt automatisch een geldigheidsdatum
 - **Live A4-preview** — wat je ziet is exact de PDF die je verstuurt
 - **Alle Nederlandse BTW-situaties** — 21%/9%/0% per regel, BTW verlegd (art. 12 Wet OB),
@@ -22,6 +25,8 @@ stuurt is dat absurd. VLOT keert het om: de software komt naar jou, je cijfers b
 - **Vier factuurthema's** — Grootboek, Klassiek, Minimaal en Vermiljoen; wisselen zonder opnieuw typen
 - **Status & overzicht** — concept / verzonden / betaald, met openstaand saldo en jaaromzet
 - **Kortingen** — percentueel, netjes verrekend in de BTW-grondslag per tarief
+- **Logo-upload** — afbeelding wordt client-side verkleind en lokaal bewaard; SVG blijft vectorscherp
+- **Werkt offline** — service worker cachet de hele app na de eerste keer laden
 - **Back-up in eigen hand** — exporteer/importeer je hele administratie als één JSON-bestand
 - **Donkere modus** — voor de nachtelijke boekhouder
 - **PDF met juiste bestandsnaam** — `Factuur-2026-001.pdf`, via de printdialoog van je browser
@@ -42,7 +47,8 @@ vanilla JavaScript. Daardoor:
 | `css/factuur.css` | het factuurdocument zelf (scherm én print), incl. thema's |
 | `css/print.css` | reduceert de afdruk tot exact één A4 |
 | `css/tokens.css` | ontwerptokens: kleuren, typografie, licht/donker |
-| `js/model.js` | datamodel, localStorage, BTW-berekeningen |
+| `js/qr.js` | QR-encoder (ISO/IEC 18004, byte-modus, EC-M) voor de betaal-QR |
+| `js/model.js` | datamodel, localStorage, BTW-berekeningen, EPC-payload |
 | `js/factuur-render.js` | factuurobject → A4-HTML |
 | `js/studio.js` | de app: lijst, editor, preview, export/import |
 

@@ -218,6 +218,25 @@
   font-size: 15px;
 }
 
+.mf-qr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.mf-qr svg { border: 1px solid rgba(26, 34, 51, 0.15); border-radius: 3px; }
+
+.mf-qr-tekst {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e8491f;
+  line-height: 1.5;
+}
+
 .hero-visual .stempel { position: absolute; }
 
 .stempel-betaald {

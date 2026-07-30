@@ -67,6 +67,10 @@
           <div class="mf-regel mf-licht"><span>BTW 21%</span><i></i><span>€ 306,60</span></div>
         </div>
         <div class="mf-totaal"><span>Totaal</span><span>€ 1.766,60</span></div>
+        <div class="mf-qr">
+          <span id="hero-qr"></span>
+          <span class="mf-qr-tekst">Scan &amp;<br />betaal</span>
+        </div>
       </div>
       <div class="stempel stempel-betaald">Voldaan</div>
       <div class="stempel stempel-vlot">VLOT ✓</div>
@@ -96,8 +100,8 @@
       </article>
       <article class="kaart">
         <span class="kaart-nr">B</span>
-        <h3>PDF's om te versturen</h3>
-        <p>Wat je op het scherm ziet is exact je A4. Eén klik en je hebt een strak, drukklaar PDF-bestand met jouw gegevens, jouw stijl en het juiste bestandsnaamformaat.</p>
+        <h3>Scan &amp; betaal-QR</h3>
+        <p>Elke factuur krijgt automatisch een betaal-QR met IBAN, bedrag en kenmerk. Jouw klant scant met de bank-app en betaalt in tien seconden — sneller betaald zijn bestaat niet.</p>
       </article>
       <article class="kaart">
         <span class="kaart-nr">C</span>
@@ -108,6 +112,16 @@
         <span class="kaart-nr">D</span>
         <h3>Overzicht dat rust geeft</h3>
         <p>Concept, verzonden, betaald. Eén oogopslag en je weet wat er open staat en wat je dit jaar al binnenhaalde. Zonder dashboardstress.</p>
+      </article>
+      <article class="kaart">
+        <span class="kaart-nr">E</span>
+        <h3>PDF's om te versturen</h3>
+        <p>Wat je op het scherm ziet is exact je A4. Eén klik en je hebt een strak, drukklaar PDF-bestand — met je eigen logo en het juiste bestandsnaamformaat.</p>
+      </article>
+      <article class="kaart">
+        <span class="kaart-nr">F</span>
+        <h3>Werkt ook offline</h3>
+        <p>Na één keer laden draait VLOT ook zonder internet — in de trein, op een klus, waar dan ook. Je administratie reist met je browser mee, niet met een serverpark.</p>
       </article>
     </div>
   </section>
@@ -208,10 +222,14 @@
     <span class="mono-label">Geen cookies · geen tracking · alles lokaal</span>
   </footer>
 
+  <script src="js/qr.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
+    /* Een echt scanbare QR in de hero — met een knipoog */
+    document.getElementById("hero-qr").innerHTML =
+      QR.qrSVG("VLOT — facturen die kloppen, zonder gedoe. Probeer het zelf: open de studio.", 64);
   </script>
 </body>
 </html>
