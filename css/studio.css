@@ -443,6 +443,17 @@
   border-top: 1px solid var(--lijn);
 }
 
+.veld-vink .vink-rij {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 8px 0;
+  color: var(--ink-soft);
+}
+
+.veld-vink input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blauw); }
+
 .logo-rij { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 .logo-rij img {

@@ -4,7 +4,7 @@
    worden gecachet; bij een nieuwe versie wordt de cache ververst.
    ============================================================ */
 
-const CACHE = "vlot-v1";
+const CACHE = "vlot-v2";
 
 const BESTANDEN = [
   "./",
@@ -15,6 +15,7 @@ const BESTANDEN = [
   "css/studio.css",
   "css/factuur.css",
   "css/print.css",
+  "js/qr.js",
   "js/model.js",
   "js/factuur-render.js",
   "js/studio.js",

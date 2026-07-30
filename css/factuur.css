@@ -226,6 +226,30 @@
   font-weight: 700;
 }
 
+/* ── Betaal-QR ── */
+.f-qr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.f-qr svg {
+  border: 1px solid var(--f-lijn);
+  border-radius: 4px;
+}
+
+.f-qr-tekst {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--f-inkt) 65%, transparent);
+}
+
+.f-qr-tekst strong { color: var(--f-accent-2); }
+
 /* ── Voet ── */
 .f-voet {
   margin-top: auto;

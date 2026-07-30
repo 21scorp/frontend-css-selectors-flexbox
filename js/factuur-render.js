@@ -87,6 +87,18 @@ function renderFactuurHTML(f, bedrijf) {
         bedrijf.iban ? ` op <strong>${esc(bedrijf.iban)}</strong>` : ""
       } o.v.v. <strong>${esc(f.nummer)}</strong>.</p>`;
 
+  let qrBlok = "";
+  if (!isOfferte && f.betaalQR !== false && f.status !== "betaald" && typeof QR !== "undefined") {
+    const payload = epcPayload(f, bedrijf, b.totaal);
+    if (payload) {
+      qrBlok = `
+      <div class="f-qr">
+        ${QR.qrSVG(payload, 92)}
+        <span class="f-qr-tekst"><strong>Scan &amp; betaal</strong><br>met je bank-app</span>
+      </div>`;
+    }
+  }
+
   return `
   <article class="factuur thema-${esc(f.thema)}" lang="nl">
     <header class="f-kop">
@@ -134,6 +146,7 @@ function renderFactuurHTML(f, bedrijf) {
         ${f.notitie ? `<p>${esc(f.notitie)}</p>` : ""}
         ${b.btwNoot ? `<p class="f-btwnoot">${esc(b.btwNoot)}</p>` : ""}
         ${betaalblok}
+        ${qrBlok}
       </div>
       <div class="f-totalen">
         <div class="f-totaalrij"><span>Subtotaal</span><span>${euro.format(b.subtotaal)}</span></div>

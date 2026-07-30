@@ -202,7 +202,14 @@ function renderEditor() {
       <span class="mono-label">Afronding</span>
       <div class="veldrij">
         ${veld("Korting %", "kortingPct", f, 'type="number" min="0" max="100" step="0.5"', "veld-smal")}
-        <div class="veld"></div><div class="veld"></div>
+        <label class="veld veld-vink">
+          <span class="mono-label">Betaal-QR</span>
+          <span class="vink-rij">
+            <input type="checkbox" data-pad="betaalQR" ${f.betaalQR !== false ? "checked" : ""} />
+            <span>Scan &amp; betaal-code op de factuur</span>
+          </span>
+        </label>
+        <div class="veld"></div>
       </div>
       <div class="veldrij">
         <label class="veld"><span class="mono-label">Notitie op factuur</span>
@@ -289,6 +296,7 @@ elEditor.addEventListener("input", (e) => {
   } else if (e.target.dataset.pad) {
     let waarde = e.target.value;
     if (e.target.type === "number") waarde = Number(waarde);
+    if (e.target.type === "checkbox") waarde = e.target.checked;
     schrijfPad(f, e.target.dataset.pad, waarde);
   } else {
     return;

@@ -80,7 +80,31 @@ function nieuweFactuur(staat) {
     btwModus: "normaal",
     kortingPct: 0,
     notitie: "",
+    betaalQR: true,
   };
+}
+
+/**
+ * Bouwt de EPC-QR-payload ("Scan & betaal", door alle NL/EU bank-apps
+ * ondersteund). Retourneert null als de gegevens onvolledig zijn.
+ */
+function epcPayload(f, bedrijf, totaal) {
+  const iban = (bedrijf.iban || "").replace(/\s+/g, "").toUpperCase();
+  const naam = (bedrijf.naam || "").trim();
+  if (!iban || !naam || totaal < 0.01 || totaal > 999999999.99) return null;
+  return [
+    "BCD",
+    "002",
+    "1",
+    "SCT",
+    "", // BIC is optioneel sinds versie 002
+    naam.slice(0, 70),
+    iban,
+    "EUR" + totaal.toFixed(2),
+    "",
+    "",
+    `Factuur ${f.nummer}`.slice(0, 140),
+  ].join("\n");
 }
 
 function standaardStaat() {
