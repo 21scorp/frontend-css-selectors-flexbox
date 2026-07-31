@@ -59,6 +59,15 @@ const MIJNLIJN = (() => {
       station: "#08080C",
       gloed: true,
     },
+    bubbelgum: {
+      naam: "Bubbelgum",
+      bg: "#FFF0F4",
+      inkt: "#47203A",
+      zacht: "#B08398",
+      raster: "rgba(71,32,58,0.09)",
+      station: "#FFF0F4",
+      gloed: false,
+    },
   };
 
   /* ---------- Formaten ---------- */
